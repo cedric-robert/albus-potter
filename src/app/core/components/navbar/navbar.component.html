@@ -17,6 +17,9 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="#">Home</a>
         </li>
+        <li class="nav-item" *ngFor="let section of sections">
+          <a class="nav-link" href="#"> {{ section.line }}</a>
+        </li>
       </ul>
     </div>
   </div>

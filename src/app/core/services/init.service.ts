@@ -1,35 +1,47 @@
 import { Injectable } from '@angular/core';
 import axios from 'axios';
+import { StoreService } from './store.service';
+
+export interface Section {
+  index: string;
+  line: string;
+  level: string;
+}
+
+export interface Parse {
+  title: string;
+  sections: Section[];
+}
+
+const urlGetSections =
+  'https://fr.wikipedia.org/w/api.php?' +
+  new URLSearchParams({
+    origin: '*',
+    action: 'parse',
+    pageid: '4057986',
+    format: 'json',
+    prop: 'sections'
+  });
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class InitService {
-  constructor() {}
+  constructor(private readonly storeService: StoreService) {}
 
-  static initializeApp(): Promise<void> {
+  init(): Promise<void> {
     console.log('initializing');
-
-    const urlGetSections =
-      'https://fr.wikipedia.org/w/api.php?' +
-      new URLSearchParams({
-        origin: '*',
-        action: 'parse',
-        pageid: '4057986',
-        format: 'json',
-        prop: 'sections',
-      });
 
     axios
       .get(urlGetSections)
-      .then((response) => {
+      .then(response => {
         if (response.status === 200) {
-          console.log(response.data);
+          this.storeService.sections = response.data.parse.sections;
         } else {
           console.error('il y a une erreur');
         }
       })
-      .catch((error) => console.log(error));
+      .catch(error => console.log(error));
 
     return new Promise((resolve, reject) => {
       // Do some asynchronous stuff

@@ -7,16 +7,21 @@ import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { InitService } from './core/services/init.service';
 
+function initializeApp(initService: InitService): () => Promise<void> {
+  return () => initService.init();
+}
+
 @NgModule({
   declarations: [AppComponent],
   imports: [BrowserModule, AppRoutingModule, NgbModule, CoreModule],
   providers: [
     {
       provide: APP_INITIALIZER,
-      useFactory: () => InitService.initializeApp,
-      multi: true,
-    },
+      useFactory: initializeApp,
+      deps: [InitService],
+      multi: true
+    }
   ],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent]
 })
 export class AppModule {}
