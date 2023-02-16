@@ -1,8 +1,7 @@
 <header>
-  <app-navbar [sections]="sections"></app-navbar>
+  <app-navbar [sections]="sections$ | async"></app-navbar>
 </header>
 <div class="container py-4 px-3 mx-auto">
-  <h1>Personnages principaux de Harry Potter</h1>
   <router-outlet></router-outlet>
 </div>
 <app-footer></app-footer>
