@@ -32,20 +32,20 @@ export class InitService {
   init(): Promise<void> {
     console.log('initializing');
 
-    axios
+    return axios
       .get(urlGetSections)
       .then(response => {
         if (response.status === 200) {
-          this.storeService.sections = response.data.parse.sections;
+          this.storeService.setSections(response.data.parse.sections);
         } else {
           console.error('il y a une erreur');
         }
       })
       .catch(error => console.log(error));
 
-    return new Promise((resolve, reject) => {
+    /* return new Promise((resolve, reject) => {
       // Do some asynchronous stuff
       resolve();
-    });
+    }); */
   }
 }

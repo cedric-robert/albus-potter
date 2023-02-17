@@ -14,6 +14,6 @@ export class NavbarComponent implements OnChanges {
   sectionsFragment: Section[] = [];
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.sectionsFragment = changes['sections'].currentValue.splice(this.SECTION_INDEX_START, this.MAX_ELEMENT - this.SECTION_INDEX_START);
+    this.sectionsFragment = changes['sections'].currentValue.slice(this.SECTION_INDEX_START, this.MAX_ELEMENT + this.SECTION_INDEX_START);
   }
 }

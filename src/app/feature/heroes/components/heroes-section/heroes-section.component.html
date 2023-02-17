@@ -1,0 +1,2 @@
+<h2 *ngIf="section$ | async as section; else noHeroes">{{ section.line }}</h2>
+<ng-template #noHeroes><h2>Pas de résultat</h2></ng-template>
