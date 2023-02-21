@@ -4,7 +4,7 @@ import { HeroesSectionComponent } from './components/heroes-section/heroes-secti
 import { HeroesComponent } from './heroes.component';
 
 const routes: Routes = [
-  { path: ':sectionId', component: HeroesSectionComponent },
+  { path: ':linkAnchor', component: HeroesSectionComponent },
   { path: '', component: HeroesComponent }
 ];
 

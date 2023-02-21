@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { combineLatest, EMPTY, map, Observable, of, switchMap } from 'rxjs';
@@ -17,6 +17,7 @@ export interface Hero {
   styleUrls: ['./heroes-section.component.scss']
 })
 export class HeroesSectionComponent implements OnInit {
+  @ViewChild('heroesList') heroesList!: ElementRef;
   sections: Section[] = [];
   heroes$: Observable<Hero[]> = EMPTY;
   sectionId = -1;
@@ -24,10 +25,17 @@ export class HeroesSectionComponent implements OnInit {
   constructor(private heroesService: HeroesService, private route: ActivatedRoute, private readonly storeService: StoreService) {}
 
   ngOnInit(): void {
-    const sectionId$ = this.route.paramMap.pipe(switchMap(params => of(params.get('sectionId'))));
-    this.section$ = combineLatest([sectionId$, this.storeService.sections$]).pipe(
-      map(([sectionId, sections]) => {
-        const currentSection = sections.find(section => section.index === sectionId);
+    const linkAnchor$ = this.route.paramMap.pipe(switchMap(params => of(params.get('linkAnchor'))));
+    this.section$ = combineLatest([linkAnchor$, this.storeService.sections$]).pipe(
+      map(([linkAnchor, sections]) => {
+        const currentSection: Section | undefined = sections.find(section => section.linkAnchor === linkAnchor);
+        if (currentSection) {
+          console.log('currentSection.index: ', currentSection.index);
+          this.heroesService.getHeroes(currentSection.index).then(axiosResponse => {
+            console.log(axiosResponse.data.parse.text);
+            this.heroesList.nativeElement;
+          });
+        }
         return currentSection;
       })
     );

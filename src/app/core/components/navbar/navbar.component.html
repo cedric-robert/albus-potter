@@ -15,7 +15,7 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item" *ngFor="let section of sectionsFragment">
-          <a class="nav-link text-truncate" [routerLink]="['/heroes/', section.index]" routerLinkActive="active"> {{ section.line }}</a>
+          <a class="nav-link text-truncate" [routerLink]="['/heroes/', section.linkAnchor]" routerLinkActive="active"> {{ section.line }}</a>
         </li>
       </ul>
     </div>
