@@ -1,3 +1,7 @@
 <h2 *ngIf="section$ | async as section; else noHeroes">{{ section.line }}</h2>
-<section #heroesList></section>
+<section>
+  <ul class="list-group" *ngFor="let hero of heroes$ | async; let pos = index">
+    <li class="list-group-item">{{ pos + 1 }}. {{ hero }}</li>
+  </ul>
+</section>
 <ng-template #noHeroes><h2>Pas de résultat</h2></ng-template>
