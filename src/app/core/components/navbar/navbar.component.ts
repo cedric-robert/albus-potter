@@ -9,7 +9,7 @@ import { Section } from '../../services/init.service';
 })
 export class NavbarComponent implements OnChanges {
   @Input() sections: Section[] | null = [];
-  readonly MAX_ELEMENT = 5;
+  readonly MAX_ELEMENT = 6;
   readonly SECTION_INDEX_START = 1;
   sectionsFragment: Section[] = [];
 
